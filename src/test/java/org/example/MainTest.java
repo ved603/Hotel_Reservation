@@ -9,6 +9,6 @@ public class MainTest {
     public void testAdd(){
         Main m = new Main();
         Assert.assertTrue(m.addHotel("LakeView",20000));
-        Assert.assertTrue(m.addHotel("TajLand Ends",4000));
+        Assert.assertTrue(  m.addHotel("TajLand Ends",4000));
     }
 }
