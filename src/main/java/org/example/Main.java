@@ -11,7 +11,6 @@ class Hotels {
     long Regular_Price;
     String start;
     String end;
-
     String start_week;
     String end_week;
 
@@ -43,21 +42,21 @@ public class Main {
     static List<Hotels> hotelList = new ArrayList<>();
     static Scanner sc = new Scanner(System.in);
 
-    static String cheapest(String Start,String end) {
+    static String cheapest(String Start,String end,String weekstart, String weekend) {
         long min= Integer.MAX_VALUE;
+        long min1 = Integer.MAX_VALUE;
 //        System.out.println(min);
         String name = null;
 
         for (Hotels hotels : hotelList) {
-            if(Start.equals(hotels.start) && end.equals(hotels.end)) {
-                if (hotels.Regular_Price < min) {
+            if(Start.equals(hotels.start) && end.equals(hotels.end) && weekstart.equals(hotels.start_week) && weekend.equals(hotels.end_week)) {
+                if (hotels.Regular_Price < min && hotels.week_price < min1 ) {
                     min = hotels.Regular_Price;
+                    min1 = hotels.week_price;
                     name = hotels.Name;
-
                 }
             }
         }
-
         return name;
     }
     static Boolean addHotel(String name, long regular_price,String start,String end,String start_week,String end_week,long week_price) {
@@ -77,6 +76,6 @@ public class Main {
         m.addHotel("TajLand Ends",4000,"20-may-2002","21-july-2002","26-may-2002","27-may-2002",6000);
         m.addHotel("LakePlacids",5000,"20-jan-2002","11-feb-2002","25-jan-2002","26-jan-2002",7000);
         m.addHotel("TajLand Ends",4000,"22-nov-2002","22-dec-2002","10-dec-2002","11-dec-2002",5000);
-
     }
+
 }
