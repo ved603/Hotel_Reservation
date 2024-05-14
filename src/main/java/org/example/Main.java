@@ -11,11 +11,19 @@ class Hotels {
     long Regular_Price;
     String start;
     String end;
-    Hotels(String name, long regular_price,String start,String end) {
+
+    String start_week;
+    String end_week;
+
+    long week_price;
+    Hotels(String name, long regular_price,String start,String end,String start_week,String end_week,long week_price) {
         this.Name = name;
         this.Regular_Price = regular_price;
         this.start = start;
         this.end = end;
+        this.start_week = start_week;
+        this.end_week = end_week;
+        this.week_price = week_price;
     }
 
     @Override
@@ -24,6 +32,10 @@ class Hotels {
         System.out.println("The Regular Price of an Hotel is : " + Regular_Price);
         System.out.println("The Start Date of the Hotel is : " +start);
         System.out.println("The end Date of the Hotel is : " +end);
+        System.out.println("The Week Date start of the Hotel is : " +start_week);
+        System.out.println("The Week end Date of the Hotel is : " +end_week);
+        System.out.println("The Weekend Price of an Hotel is : " + week_price);
+
         return "";
     }
 }
@@ -48,8 +60,8 @@ public class Main {
 
         return name;
     }
-    static Boolean addHotel(String name, long regular_price,String start,String end) {
-        Hotels hot = new Hotels(name, regular_price, start, end );
+    static Boolean addHotel(String name, long regular_price,String start,String end,String start_week,String end_week,long week_price) {
+        Hotels hot = new Hotels(name,regular_price,start,end,start_week,end_week,week_price);
         hotelList.add(hot);
         if(name.equals(hot.Name) && regular_price == hot.Regular_Price) {
             return true;
@@ -61,10 +73,10 @@ public class Main {
 
     public static void main(String args[]){
         Main m = new Main();
-        m.addHotel("LakeView",20000,"20-may-2002","21-july-2002");
-        m.addHotel("TajLand Ends",4000,"20-may-2002","21-july-2002");
-        m.addHotel("LakePlacids",5000,"20-jan-2002","11-feb-2002");
-        m.addHotel("TajLand Ends",4000,"22-nov-2002","22-dec-2002");
+        m.addHotel("LakeView",20000,"20-may-2002","21-july-2002","26-may-2002","27-may-2002",30000);
+        m.addHotel("TajLand Ends",4000,"20-may-2002","21-july-2002","26-may-2002","27-may-2002",6000);
+        m.addHotel("LakePlacids",5000,"20-jan-2002","11-feb-2002","25-jan-2002","26-jan-2002",7000);
+        m.addHotel("TajLand Ends",4000,"22-nov-2002","22-dec-2002","10-dec-2002","11-dec-2002",5000);
 
     }
 }
