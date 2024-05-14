@@ -47,15 +47,17 @@ public class Main {
     static String cheapest(String Start,String end,String weekstart, String weekend) {
         long min= Integer.MAX_VALUE;
         long min1 = Integer.MAX_VALUE;
+        int flag=0;
 //        System.out.println(min);
         String name = null;
 
         for (Hotels hotels : hotelList) {
             if(Start.equals(hotels.start) && end.equals(hotels.end) && weekstart.equals(hotels.start_week) && weekend.equals(hotels.end_week)) {
-                if (hotels.Regular_Price < min && hotels.week_price < min1 ) {
+                if (hotels.Regular_Price < min && hotels.week_price < min1 && flag < hotels.Rating) {
                     min = hotels.Regular_Price;
                     min1 = hotels.week_price;
                     name = hotels.Name;
+                    flag = hotels.Rating;
                 }
             }
         }
