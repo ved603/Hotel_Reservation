@@ -44,7 +44,7 @@ public class Main {
     static List<Hotels> hotelList = new ArrayList<>();
     static Scanner sc = new Scanner(System.in);
 
-    static String cheapest(String Start,String end,String weekstart, String weekend) {
+    static String cheapest(String Start,String end) {
         long min= Integer.MAX_VALUE;
         long min1 = Integer.MAX_VALUE;
         int flag=0;
@@ -52,7 +52,8 @@ public class Main {
         String name = null;
 
         for (Hotels hotels : hotelList) {
-            if(Start.equals(hotels.start) && end.equals(hotels.end) && weekstart.equals(hotels.start_week) && weekend.equals(hotels.end_week)) {
+            if(Start.equals(hotels.start) && end.equals(hotels.end) ) {
+//                && weekstart.equals(hotels.start_week) && weekend.equals(hotels.end_week)
                 if (hotels.Regular_Price < min && hotels.week_price < min1 && flag < hotels.Rating) {
                     min = hotels.Regular_Price;
                     min1 = hotels.week_price;
@@ -61,7 +62,7 @@ public class Main {
                 }
             }
         }
-        return name;
+        return name +" "+ min;
     }
     static Boolean addHotel(String name, long regular_price,String start,String end,String start_week,String end_week,long week_price,int Rating) {
         Hotels hot = new Hotels(name,regular_price,start,end,start_week,end_week,week_price,Rating);
