@@ -1,10 +1,7 @@
 package org.example;
 
 import java.sql.SQLOutput;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Scanner;
+import java.util.*;
 
 class Hotels {
     String Name;
@@ -47,39 +44,23 @@ public class Main {
     static List<Hotels> hotelList = new ArrayList<>();
     static ArrayList<Integer> arr = new ArrayList<Integer>();
     static Scanner sc = new Scanner(System.in);
-    public static String cheapest(int id , String Start,String end) {
-        long min = Integer.MAX_VALUE;
-        long min1 = Integer.MAX_VALUE;
-        int flag = 0;
-//        System.out.println(min);
-        String name = null;
+    public static String cheapest(int id, String start, String end) {
+        List<Integer> arr = new ArrayList<>(); // Assuming arr is declared somewhere
+        boolean isFirstTime = !arr.contains(id);
 
-        for (Hotels hotels : hotelList) {
-            if (!arr.contains(id)) {
-                if (Start.equals(hotels.start) && end.equals(hotels.end)) {
-//                && weekstart.equals(hotels.start_week) && weekend.equals(hotels.end_week)
-                    if (hotels.Regular_Price < min && hotels.week_price < min1 && flag < hotels.Rating) {
-                        min = hotels.Regular_Price;
-                        min1 = hotels.week_price;
-                        name = hotels.Name;
-                        flag = hotels.Rating;
-                    }
-                }
-                arr.add(id);
-            } else {
-                if (Start.equals(hotels.start) && end.equals(hotels.end)) {
-//                && weekstart.equals(hotels.start_week) && weekend.equals(hotels.end_week)
-                    if (hotels.srr < min && hotels.swr < min1 && flag < hotels.Rating) {
-                        min = hotels.srr;
-                        min1 = hotels.swr;
-                        name = hotels.Name;
-                        flag = hotels.Rating;
-                    }
-                }
-            }
+        Optional<Hotels> cheapestHotel = hotelList.stream()
+                .filter(hotel -> isFirstTime ? !arr.contains(id) : arr.contains(id))
+                .filter(hotel -> start.equals(hotel.start) && end.equals(hotel.end))
+                .min(Comparator.comparingLong(hotel -> isFirstTime ? hotel.Regular_Price : hotel.srr));
 
+        if (cheapestHotel.isPresent()) {
+            Hotels hotel = cheapestHotel.get();
+            long minPrice = isFirstTime ? hotel.Regular_Price : hotel.srr;
+            arr.add(id);
+            return hotel.Name + " " + minPrice;
+        } else {
+            return "No hotel found for the given criteria";
         }
-        return name + " " +min;
     }
     public static Boolean addHotel(String name, long regular_price,String start,String end,String start_week,String end_week,long week_price,int Rating,long srr,long swr) {
         Hotels hot = new Hotels(name,regular_price,start,end,start_week,end_week,week_price,Rating,srr,swr);
